@@ -1,92 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gantt Chart</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        canvas {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    </style>
+    <title>Сайт с карточками</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="ganttChart"></canvas>
-    <script>
-        // Инициализация Telegram Web App
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+    <!-- Шапка -->
+    <header>
+        <h1>Мой сайт</h1>
+        <p>Здесь будет информация в шапке</p>
+    </header>
 
-        // Данные для диаграммы Ганта
-        const tasks = [
-            { task: 'Task 1', start: new Date('2023-10-01'), end: new Date('2023-10-05') },
-            { task: 'Task 2', start: new Date('2023-10-03'), end: new Date('2023-10-08') },
-            { task: 'Task 3', start: new Date('2023-10-06'), end: new Date('2023-10-10') }
-        ];
+    <!-- Основной блок -->
+    <main>
+        <div class="cards-container" id="cards-container">
+            <!-- Карточки будут добавляться сюда динамически -->
+        </div>
+    </main>
 
-        // Преобразование данных для Chart.js
-        const data = {
-            labels: tasks.map(t => t.task),
-            datasets: [{
-                label: 'Gantt Chart',
-                data: tasks.map(t => ({
-                    x: [t.start, t.end],
-                    y: t.task
-                })),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        };
-
-        // Конфигурация диаграммы
-        const config = {
-            type: 'bar',
-            data,
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
-                        },
-                        min: new Date('2023-10-01'),
-                        max: new Date('2023-10-15')
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const task = tasks[context.dataIndex];
-                                return `${task.task}: ${task.start.toDateString()} - ${task.end.toDateString()}`;
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        // Создание диаграммы
-        const ctx = document.getElementById('ganttChart').getContext('2d');
-        new Chart(ctx, config);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
